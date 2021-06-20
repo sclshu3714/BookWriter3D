@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Ink;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
@@ -26,6 +27,7 @@ namespace EBookLibrary
         public static DependencyProperty DisplayModeProperty;
         public static DependencyProperty CurrentPageProperty;
 
+        public Dictionary<string, StrokeCollection> InkStrokeNotes { get; set; } = new Dictionary<string, StrokeCollection>();
         private PageStatus _status = PageStatus.None;
         private DataTemplate defaultDataTemplate;
         private int _currentSheetIndex = 0;
@@ -137,10 +139,8 @@ namespace EBookLibrary
 
                 Canvas.SetZIndex((bp0 as EBookPage), 0);
                 Canvas.SetZIndex((bp1 as EBookPage), 1);
-                
+                //bp1.RestoreNotes(this, true);
                 bp1.AutoTurnPage(fromTop ? CornerOrigin.TopRight : CornerOrigin.BottomRight, duration);
-                bp0.ClearInkCanvas();
-                bp1.ClearInkCanvas();
             }
         }
 
@@ -157,9 +157,8 @@ namespace EBookLibrary
                 Canvas.SetZIndex((bp1 as EBookPage), 0);
                 Canvas.SetZIndex((bp0 as EBookPage), 1);
 
+                //bp0.RestoreNotes(this, false);
                 bp0.AutoTurnPage(fromTop ? CornerOrigin.TopLeft : CornerOrigin.BottomLeft, duration); 
-                bp0.ClearInkCanvas();
-                bp1.ClearInkCanvas();
             }
         }
 

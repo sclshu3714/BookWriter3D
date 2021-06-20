@@ -75,7 +75,7 @@ namespace EBookApp
         {
             myBook.AnimateToPreviousPage(false, 700);
             myBook.Focus();
-            CurrentPage -= 1;
+            //CurrentPage -= 1;
             //if (CurrentPage - 1 > 0)
             //{
             //    this.myBook.Dispatcher.Invoke(new Action(() =>

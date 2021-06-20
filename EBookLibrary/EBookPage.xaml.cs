@@ -215,11 +215,13 @@ namespace EBookLibrary
         void anim_Completed(object sender, EventArgs e)
         {
             //Application.Current.MainWindow.Title += "C";
+            
 
             ApplyParameters(new PageParameters(this.RenderSize));
 
             if (Status == PageStatus.TurnAnimation)
             {
+                TakeNotes();
                 Status = PageStatus.None;
                 RaiseEvent(new RoutedEventArgs(EBookPage.PageTurnedEvent, this));
             }
@@ -235,6 +237,54 @@ namespace EBookLibrary
             if (parameters != null)
                 ApplyParameters(parameters.Value);
         }
+        /// <summary>
+        /// 记录笔记
+        /// </summary>
+        public void TakeNotes() {
+            EBookPage element = this as EBookPage;
+            EBook eBook = element.TemplatedParent as EBook;
+            EBookPage bp0 = eBook.Template.FindName("sheet0", eBook) as EBookPage;
+            EBookPage bp1 = eBook.Template.FindName("sheet1", eBook) as EBookPage;
+            if ((bp0 != null) && (bp1 != null))
+            {
+                string sheet0Stroke = $"sheet0_{eBook.CurrentSheetIndex}";
+                if (eBook.InkStrokeNotes.ContainsKey(sheet0Stroke) && bp0.inkPage0.Strokes.Count > 0)
+                    eBook.InkStrokeNotes[sheet0Stroke] = bp0.inkPage0.Strokes.Clone();
+                else if (bp0.inkPage0.Strokes.Count > 0)
+                    eBook.InkStrokeNotes.Add(sheet0Stroke, bp0.inkPage0.Strokes.Clone());
+
+                string sheet1Stroke = $"sheet1_{eBook.CurrentSheetIndex}";
+                if (eBook.InkStrokeNotes.ContainsKey(sheet1Stroke) && bp1.inkPage0.Strokes.Count > 0)
+                    eBook.InkStrokeNotes[sheet1Stroke] = bp1.inkPage0.Strokes.Clone();
+                else if (bp1.inkPage0.Strokes.Count > 0)
+                    eBook.InkStrokeNotes.Add(sheet1Stroke, bp1.inkPage0.Strokes.Clone());
+                //删除旧的笔画
+                bp0.ClearInkCanvas();
+                bp1.ClearInkCanvas();
+
+                if (origin == CornerOrigin.BottomLeft || origin == CornerOrigin.TopLeft)
+                {
+                    sheet0Stroke = $"sheet0_{eBook.CurrentSheetIndex - 1}";
+                    if (eBook.InkStrokeNotes.ContainsKey(sheet0Stroke))
+                        bp0.inkPage0.Strokes.Add(eBook.InkStrokeNotes[sheet0Stroke]);
+
+                    sheet1Stroke = $"sheet1_{eBook.CurrentSheetIndex - 1}";
+                    if (eBook.InkStrokeNotes.ContainsKey(sheet1Stroke))
+                        bp1.inkPage0.Strokes.Add(eBook.InkStrokeNotes[sheet1Stroke]);
+                }
+                else
+                {
+                    sheet0Stroke = $"sheet0_{eBook.CurrentSheetIndex + 1}";
+                    if (eBook.InkStrokeNotes.ContainsKey(sheet0Stroke))
+                        bp0.inkPage0.Strokes.Add(eBook.InkStrokeNotes[sheet0Stroke]);
+
+                    sheet1Stroke = $"sheet1_{eBook.CurrentSheetIndex + 1}";
+                    if (eBook.InkStrokeNotes.ContainsKey(sheet1Stroke))
+                        bp1.inkPage0.Strokes.Add(eBook.InkStrokeNotes[sheet1Stroke]);
+                }
+            }
+        }
+
         private void ApplyParameters(PageParameters parameters)
         {
             pageReflection.Opacity = parameters.Page0ShadowOpacity;
@@ -415,7 +465,9 @@ namespace EBookLibrary
             anim.Completed += new EventHandler(anim_Completed);
             this.BeginAnimation(EBookPage.CornerPointProperty, anim);
         }
-
+        /// <summary>
+        /// 清除笔记
+        /// </summary>
         public void ClearInkCanvas() {
             this.inkPage0.Children.Clear();
             this.inkPage0.Strokes.Clear();
