@@ -21,7 +21,8 @@
                     <ColumnDefinition Width="50*" />
                 </Grid.ColumnDefinitions>
                 <local:EBookPage Grid.Column="0" x:Name="sheet0" IsTopRightCornerEnabled="false" IsBottomRightCornerEnabled="false"
-                                MouseDown="OnLeftMouseDown" PageTurned="OnLeftPageTurned" />
+                                MouseDown="OnLeftMouseDown" PageTurned="OnLeftPageTurned"/>
+
                 <local:EBookPage Grid.Column="1" x:Name="sheet1" IsTopLeftCornerEnabled="false" IsBottomLeftCornerEnabled="false"
                                 MouseDown="OnRightMouseDown" PageTurned="OnRightPageTurned" />
             </Grid>

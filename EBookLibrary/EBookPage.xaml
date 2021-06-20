@@ -13,7 +13,7 @@
     <Grid x:Name="mainGrid">
         <!--Page 2 begin-->
         <ContentPresenter x:Name="page2" />
-        <!--Page 2 end-->
+            <!--Page 2 end-->
         <Canvas Opacity="1" x:Name="nextPageShadowCanvas" Visibility="Hidden">
             <Canvas.Background>
                 <LinearGradientBrush x:Name="nextPageShadow" StartPoint="0 0" EndPoint="0 0">
@@ -40,6 +40,7 @@
             <!--Page 0 begin-->
             <ContentPresenter x:Name="page0" />
             <!--Page 0 end-->
+            <InkCanvas x:Name="inkPage0" Background="Transparent" EditingMode="None"/>
         </Grid>
         <Canvas Opacity="1" x:Name="gridShadow" Visibility="Hidden">
             <Canvas.Background>
