@@ -40,7 +40,7 @@
             <!--Page 0 begin-->
             <ContentPresenter x:Name="page0" />
             <!--Page 0 end-->
-            <InkCanvas x:Name="inkPage0" Background="Transparent" EditingMode="None"/>
+            <InkCanvas x:Name="inkPage0" Background="Transparent" EditingMode="Ink"/>
         </Grid>
         <Canvas Opacity="1" x:Name="gridShadow" Visibility="Hidden">
             <Canvas.Background>

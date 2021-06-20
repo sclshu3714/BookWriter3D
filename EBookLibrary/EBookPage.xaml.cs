@@ -383,7 +383,6 @@ namespace EBookLibrary
         {
             if (Status != PageStatus.None)
                 return;
-
             Status = PageStatus.TurnAnimation;
 
             UIElement source = this as UIElement;
@@ -415,6 +414,11 @@ namespace EBookLibrary
             anim.CurrentTimeInvalidated += new EventHandler(anim_CurrentTimeInvalidated);
             anim.Completed += new EventHandler(anim_Completed);
             this.BeginAnimation(EBookPage.CornerPointProperty, anim);
+        }
+
+        public void ClearInkCanvas() {
+            this.inkPage0.Children.Clear();
+            this.inkPage0.Strokes.Clear();
         }
     }
 }

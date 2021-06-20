@@ -137,7 +137,10 @@ namespace EBookLibrary
 
                 Canvas.SetZIndex((bp0 as EBookPage), 0);
                 Canvas.SetZIndex((bp1 as EBookPage), 1);
+                
                 bp1.AutoTurnPage(fromTop ? CornerOrigin.TopRight : CornerOrigin.BottomRight, duration);
+                bp0.ClearInkCanvas();
+                bp1.ClearInkCanvas();
             }
         }
 
@@ -153,7 +156,10 @@ namespace EBookLibrary
 
                 Canvas.SetZIndex((bp1 as EBookPage), 0);
                 Canvas.SetZIndex((bp0 as EBookPage), 1);
-                bp0.AutoTurnPage(fromTop ? CornerOrigin.TopLeft : CornerOrigin.BottomLeft, duration);
+
+                bp0.AutoTurnPage(fromTop ? CornerOrigin.TopLeft : CornerOrigin.BottomLeft, duration); 
+                bp0.ClearInkCanvas();
+                bp1.ClearInkCanvas();
             }
         }
 
