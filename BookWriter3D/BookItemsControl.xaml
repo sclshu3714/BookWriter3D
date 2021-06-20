@@ -1,0 +1,137 @@
+﻿<ItemsControl x:Class="BookWriter3D.BookItemsControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:tools="clr-namespace:_3DTools;assembly=3DTools"
+             xmlns:local="clr-namespace:BookWriter3D"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <ItemsControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source=".\Resources\ControlResources.xaml" />
+                <ResourceDictionary Source=".\Resources\ImageResources.xaml" />
+                <ResourceDictionary Source=".\Resources\MaterialResources.xaml" />
+                <ResourceDictionary Source=".\Resources\MeshGeometry3DResources.xaml" />
+                <ResourceDictionary Source=".\Resources\Other3DResources.xaml" />
+                <ResourceDictionary Source=".\Resources\Transform3DResources.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ItemsControl.Resources>
+    <ItemsControl.Template>
+        <ControlTemplate TargetType="{x:Type local:BookBind}">
+            <Grid x:Name="_LayoutRoot">
+                <Grid.Background>
+                    <ImageBrush ImageSource="{StaticResource Image_Background}" />
+                </Grid.Background>
+                <tools:TrackballDecorator>
+                    <Viewport3D x:Name="_Main3D"
+                        ClipToBounds="False"
+                        Camera="{StaticResource Other3D_MainCamera}">
+                        <StaticResource ResourceKey="Other3D_Lights" />
+                        <ModelUIElement3D MouseDown="Cover_MouseDown">
+                            <ModelUIElement3D.Model>
+                                <Model3DGroup>
+                                    <GeometryModel3D x:Name="_FrontCover"
+                                             Geometry="{StaticResource MeshGeometry3D_Cover}"
+                                             Material="{StaticResource Material_FrontCover}"
+                                             Transform="{StaticResource Transform3D_FrontCover}" />
+                                    <GeometryModel3D x:Name="_BackCover"
+                                             Geometry="{StaticResource MeshGeometry3D_Cover}"
+                                             Material="{StaticResource Material_Cover}"
+                                             Transform="{StaticResource Transform3D_BackCover}" />
+                                    <GeometryModel3D x:Name="_SpineCover"
+                                             Geometry="{StaticResource MeshGeometry3D_Cover}"
+                                             Material="{StaticResource Material_Cover}"
+                                             Transform="{StaticResource Transform3D_SpineCover}" />
+                                    <GeometryModel3D x:Name="_LeftEdge"
+                                             Geometry="{StaticResource MeshGeometry3D_Edge}"
+                                             Material="{StaticResource Material_Edge}"
+                                             Transform="{StaticResource Transform3D_Left}" />
+                                    <GeometryModel3D x:Name="_RightEdge"
+                                             Geometry="{StaticResource MeshGeometry3D_Edge}"
+                                             Material="{StaticResource Material_Edge}"
+                                             Transform="{StaticResource Transform3D_Right}" />
+                                </Model3DGroup>
+                            </ModelUIElement3D.Model>
+                        </ModelUIElement3D>
+
+                        <!-- Interactive 3D models: Pages -->
+                        <Viewport2DVisual3D x:Name="_MainCover" Geometry="{StaticResource MeshGeometry3D_Plane}" Transform="{StaticResource Transform3D_Left}" >
+                            <Viewport2DVisual3D.Material>
+                                <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" />
+                            </Viewport2DVisual3D.Material>
+                            <Viewport2DVisual3D.Visual>
+                                <TextBox x:Name="PageCover" Style="{StaticResource Control_PagesStyle}" IsReadOnly="True" PreviewMouseDown="PageCover_PreviewMouseDown"/>
+                            </Viewport2DVisual3D.Visual>
+                        </Viewport2DVisual3D>
+
+                        <Viewport2DVisual3D x:Name="_PrePage" Geometry="{StaticResource MeshGeometry3D_Plane}" Transform="{StaticResource Transform3D_LeftPage}" >
+                            <Viewport2DVisual3D.Material>
+                                <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" />
+                            </Viewport2DVisual3D.Material>
+                            <Viewport2DVisual3D.Visual>
+                                <TextBox x:Name="PageContent" Style="{StaticResource Control_PagesStyle}" IsReadOnly="True" PreviewMouseDown="PageContent_PreviewMouseDown"
+                                 Padding="30,30,5,30" Text="测试一个段落的数据; Hello Word! 魑魅魍魉。高山流水"
+                                 MouseDoubleClick="Page_MouseDoubleClick">
+                                    <TextBox.Background>
+                                        <ImageBrush x:Name="imgLeftPage" ImageSource="/Resources/Images/prepage.jpg" />
+                                    </TextBox.Background>
+                                </TextBox>
+                            </Viewport2DVisual3D.Visual>
+                        </Viewport2DVisual3D>
+
+                        <Viewport2DVisual3D x:Name="_RightPage"
+                                    Geometry="{StaticResource MeshGeometry3D_Plane}"
+                                    Transform="{StaticResource Transform3D_RightPage}">
+                            <Viewport2DVisual3D.Material>
+                                <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" />
+                            </Viewport2DVisual3D.Material>
+                            <Viewport2DVisual3D.Visual>
+                                <InkCanvas Style="{StaticResource Control_InkCanvasStyle}" EditingMode="None" PreviewMouseRightButtonDown="InkCanvas_PreviewMouseRightButtonDown" PreviewMouseDown="InkCanvas_PreviewMouseDown">
+                                    <InkCanvas.Background>
+                                        <ImageBrush x:Name="imgRightPage" ImageSource="/Resources/Images/page.jpg"/>
+                                    </InkCanvas.Background>
+                                </InkCanvas>
+                            </Viewport2DVisual3D.Visual>
+                        </Viewport2DVisual3D>
+
+                        <Viewport2DVisual3D x:Name="_RightPage1" Geometry="{StaticResource MeshGeometry3D_Plane}" Transform="{StaticResource Transform3D_RightPageBack}" >
+                            <Viewport2DVisual3D.Material>
+                                <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" />
+                            </Viewport2DVisual3D.Material>
+                            <Viewport2DVisual3D.Visual>
+                                <TextBox x:Name="PageContent1" Style="{StaticResource Control_PagesStyle}" IsReadOnly="True" PreviewMouseDown="PageContent_PreviewMouseDown"
+                                 Padding="30,30,5,30" Text="测试一个段落的数据; Hello Word! 魑魅魍魉。高山流水"
+                                 MouseDoubleClick="Page_MouseDoubleClick">
+                                    <TextBox.Background>
+                                        <ImageBrush x:Name="imgRightPage1" ImageSource="/Resources/Images/page3.jpg" />
+                                    </TextBox.Background>
+                                </TextBox>
+                            </Viewport2DVisual3D.Visual>
+                        </Viewport2DVisual3D>
+
+                        <Viewport2DVisual3D x:Name="_RightCover"
+                                    Geometry="{StaticResource MeshGeometry3D_Plane}"
+                                    Transform="{StaticResource Transform3D_Right}">
+                            <Viewport2DVisual3D.Material>
+                                <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" />
+                            </Viewport2DVisual3D.Material>
+                            <Viewport2DVisual3D.Visual>
+                                <TextBox x:Name="_RightPageCover" Style="{StaticResource Control_PagesStyle}" IsReadOnly="True" PreviewMouseDown="PageCover_PreviewMouseDown"/>
+                            </Viewport2DVisual3D.Visual>
+                        </Viewport2DVisual3D>
+                    </Viewport3D>
+                </tools:TrackballDecorator>
+            </Grid>
+        </ControlTemplate>
+    </ItemsControl.Template>
+    <ItemsControl.RenderTransform>
+        <TransformGroup>
+            <ScaleTransform x:Name="scale" ScaleX="1" ScaleY="1"  />
+            <RotateTransform Angle="0" />
+            <TranslateTransform x:Name="translate" X="0" Y="0" />
+        </TransformGroup>
+    </ItemsControl.RenderTransform>
+</ItemsControl>

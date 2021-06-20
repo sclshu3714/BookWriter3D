@@ -1,0 +1,48 @@
+﻿<Window xmlns:EBookLibrary="clr-namespace:EBookLibrary;assembly=EBookLibrary"  x:Class="EBookApp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EBookApp"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Viewbox Margin="50">
+            <Grid>
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Resources/Images/darkaurora.png" />
+                </Grid.Background>
+                <EBookLibrary:EBook x:Name="myBook" Width="600" Height="400" Margin="25">
+                    <EBookLibrary:EBook.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="4" BorderBrush="Gray" Background="Transparent">
+                                <ContentControl Content="{Binding .}" />
+                            </Border>
+                        </DataTemplate>
+                    </EBookLibrary:EBook.ItemTemplate>
+                    <Image Source="/Resources/Images/cover.jpg" Stretch="Fill"/>
+                    <Image Source="/Resources/Images/page1.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page2.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page3.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page4.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page5.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page6.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page7.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page8.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page9.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page10.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page11.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page12.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page13.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page14.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/page15.jpg" Stretch="Fill" />
+                    <Image Source="/Resources/Images/cover.jpg" Stretch="Fill"/>
+                </EBookLibrary:EBook>
+                <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Center" 
+    		VerticalContentAlignment="Center" Background="Transparent" Height="50" Click="AutoPreviousClick" />
+                <Button Content="&gt;" HorizontalAlignment="Right" VerticalAlignment="Center"
+		    VerticalContentAlignment="Center" Background="Transparent" Height="50" Click="AutoNextClick" />
+            </Grid>
+        </Viewbox>
+    </Grid>
+</Window>
