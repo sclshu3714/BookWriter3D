@@ -26,4 +26,10 @@
         </DiffuseMaterial.Brush>
     </DiffuseMaterial>
 
+    <DiffuseMaterial x:Key="Material_End">
+        <DiffuseMaterial.Brush>
+            <ImageBrush ImageSource="{StaticResource Image_End}" />
+        </DiffuseMaterial.Brush>
+    </DiffuseMaterial>
+
 </ResourceDictionary>

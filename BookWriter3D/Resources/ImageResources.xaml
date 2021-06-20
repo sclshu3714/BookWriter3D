@@ -5,8 +5,11 @@
 
     <ImageSource x:Key="Image_FrontCover">Images/cover.jpg</ImageSource>
 
+    <ImageSource x:Key="Image_End">Images/frontpage.png</ImageSource>
+    
     <ImageSource x:Key="Image_Cover">Images/cover.jpg</ImageSource>
 
     <ImageSource x:Key="Image_Edge">Images/edge.png</ImageSource>
 
+    
 </ResourceDictionary>

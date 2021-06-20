@@ -4,15 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EBookApp"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        mc:Ignorable="d" WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="700" Width="1000">
     <Grid>
-        <Viewbox Margin="50">
-            <Grid>
+        <Viewbox Margin="0">
+            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <Grid.Background>
                     <ImageBrush ImageSource="/Resources/Images/darkaurora.png" />
                 </Grid.Background>
-                <EBookLibrary:EBook x:Name="myBook" Width="600" Height="400" Margin="25">
+                <EBookLibrary:EBook x:Name="myBook" Width="900" Height="600" Margin="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                     <EBookLibrary:EBook.ItemTemplate>
                         <DataTemplate>
                             <Border BorderThickness="4" BorderBrush="Gray" Background="Transparent">
@@ -39,9 +39,9 @@
                     <Image Source="/Resources/Images/cover.jpg" Stretch="Fill"/>
                 </EBookLibrary:EBook>
                 <Button Content="&lt;" HorizontalAlignment="Left" VerticalAlignment="Center" 
-    		VerticalContentAlignment="Center" Background="Transparent" Height="50" Click="AutoPreviousClick" />
+    		VerticalContentAlignment="Center" Background="Transparent" Height="50" Click="AutoPreviousClick" Margin="5"/>
                 <Button Content="&gt;" HorizontalAlignment="Right" VerticalAlignment="Center"
-		    VerticalContentAlignment="Center" Background="Transparent" Height="50" Click="AutoNextClick" />
+		    VerticalContentAlignment="Center" Background="Transparent" Height="50" Click="AutoNextClick" Margin="5"/>
             </Grid>
         </Viewbox>
     </Grid>

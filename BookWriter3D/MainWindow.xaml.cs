@@ -43,17 +43,17 @@ namespace BookWriter3D
             {
                 BookPages.Add(new BitmapImage(new Uri($@"pack://application:,,,/BookWriter3D;component/Resources/Images/page{i}.jpg", UriKind.RelativeOrAbsolute)));
             }
-            //设置起始默认值
-            this.imgLeftPage.ImageSource = BookPages[BookmarkPage - 1];
-            if (BookmarkPage + 1 < BookPages.Count)
-            {
-                this.imgRightPage.ImageSource = BookPages[BookmarkPage];
-                this.imgTurnUpPage.ImageSource = BookPages[BookmarkPage];
-            }
-            if (BookmarkPage + 1 < BookPages.Count)
-            {
-                this.imgTurnDownPage.ImageSource = BookPages[BookmarkPage + 1];
-            }
+            ////设置起始默认值
+            //this.imgLeftPage.ImageSource = BookPages[BookmarkPage - 1];
+            //if (BookmarkPage + 1 < BookPages.Count)
+            //{
+            //    this.imgRightPage.ImageSource = BookPages[BookmarkPage];
+            //    this.imgTurnUpPage.ImageSource = BookPages[BookmarkPage];
+            //}
+            //if (BookmarkPage + 1 < BookPages.Count)
+            //{
+            //    this.imgTurnDownPage.ImageSource = BookPages[BookmarkPage + 1];
+            //}
             // Make book fade in
             DoubleAnimation da = new DoubleAnimation(0, 5, new Duration(TimeSpan.FromSeconds(2)));
             da.DecelerationRatio = 1;
@@ -139,6 +139,7 @@ namespace BookWriter3D
         /// <param name="durationSeconds">Time in seconds that the animation will take.</param>
         void CloseBook(double durationSeconds)
         {
+            myBook.CurrentSheetIndex = 0;
             // Transform3D_LeftRotation
             RotateTransform3D rot = (RotateTransform3D)TryFindResource("Transform3D_LeftRotation");
             DoubleAnimation da = new DoubleAnimation(180, new Duration(TimeSpan.FromSeconds(durationSeconds)));
@@ -244,30 +245,30 @@ namespace BookWriter3D
                 double durationSeconds = 1.5;
                 if (IsTurnpage)
                 {
-                    SetTurnPage(false);
-                    this.imgTurnUpPage.ImageSource = BookPages[CurrentPage];
-                    this.imgTurnDownPage.ImageSource = this.imgLeftPage.ImageSource;
-                    //显示翻页控件
-                    this.txtTurnUpPage.Visibility = Visibility.Visible;
-                    this.txtTurnDownPage.Visibility = Visibility.Visible;
-                    //左边设置为最新要显示的页
-                    this.imgLeftPage.ImageSource = BookPages[CurrentPage - 1];
+                    //SetTurnPage(false);
+                    //this.imgTurnUpPage.ImageSource = BookPages[CurrentPage];
+                    //this.imgTurnDownPage.ImageSource = this.imgLeftPage.ImageSource;
+                    ////显示翻页控件
+                    //this.txtTurnUpPage.Visibility = Visibility.Visible;
+                    //this.txtTurnDownPage.Visibility = Visibility.Visible;
+                    ////左边设置为最新要显示的页
+                    //this.imgLeftPage.ImageSource = BookPages[CurrentPage - 1];
 
-                    RotateTransform3D rot = (RotateTransform3D)TryFindResource("Transform3D_TurnUpPageRotation");
-                    DoubleAnimation da = new DoubleAnimation(0, new Duration(TimeSpan.FromSeconds(durationSeconds)));
-                    da.DecelerationRatio = 1;
-                    rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
-                    rot = (RotateTransform3D)TryFindResource("Transform3D_TurnDownPageRotation");
-                    da = new DoubleAnimation(180, new Duration(TimeSpan.FromSeconds(durationSeconds)));
-                    da.DecelerationRatio = 1;
-                    da.Completed += (csender, se) =>
-                    {
-                        this.imgRightPage.ImageSource = this.imgTurnUpPage.ImageSource;
-                        this.imgTurnDownPage.ImageSource = BookPages[CurrentPage + 1];
-                        this.txtTurnUpPage.Visibility = Visibility.Collapsed;
-                        this.txtTurnDownPage.Visibility = Visibility.Collapsed;
-                    };
-                    rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
+                    //RotateTransform3D rot = (RotateTransform3D)TryFindResource("Transform3D_TurnUpPageRotation");
+                    //DoubleAnimation da = new DoubleAnimation(0, new Duration(TimeSpan.FromSeconds(durationSeconds)));
+                    //da.DecelerationRatio = 1;
+                    //rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
+                    //rot = (RotateTransform3D)TryFindResource("Transform3D_TurnDownPageRotation");
+                    //da = new DoubleAnimation(180, new Duration(TimeSpan.FromSeconds(durationSeconds)));
+                    //da.DecelerationRatio = 1;
+                    //da.Completed += (csender, se) =>
+                    //{
+                    //    this.imgRightPage.ImageSource = this.imgTurnUpPage.ImageSource;
+                    //    this.imgTurnDownPage.ImageSource = BookPages[CurrentPage + 1];
+                    //    this.txtTurnUpPage.Visibility = Visibility.Collapsed;
+                    //    this.txtTurnDownPage.Visibility = Visibility.Collapsed;
+                    //};
+                    //rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
                 }
             }
         }
@@ -289,41 +290,41 @@ namespace BookWriter3D
             {
                 CurrentPage += 2;
                 double durationSeconds = 1.5;
-                //this.imgLeftPage.ImageSource = BookPages[CurrentPage];
-                this.imgRightPage.ImageSource = (BookPages.Count <= CurrentPage) ? new BitmapImage(new Uri($@"pack://application:,,,/BookWriter3D;component/Resources/Images/frontpage.jpg", UriKind.RelativeOrAbsolute)) : BookPages[CurrentPage];
-                if (IsTurnpage)
-                {
+                ////this.imgLeftPage.ImageSource = BookPages[CurrentPage];
+                //this.imgRightPage.ImageSource = (BookPages.Count <= CurrentPage) ? new BitmapImage(new Uri($@"pack://application:,,,/BookWriter3D;component/Resources/Images/frontpage.jpg", UriKind.RelativeOrAbsolute)) : BookPages[CurrentPage];
+                //if (IsTurnpage)
+                //{
 
-                    this.txtTurnUpPage.Visibility = Visibility.Visible;
-                    this.txtTurnDownPage.Visibility = Visibility.Visible;
-                    RotateTransform3D rot = (RotateTransform3D)TryFindResource("Transform3D_TurnUpPageRotation");
-                    DoubleAnimation da = new DoubleAnimation(-180, new Duration(TimeSpan.FromSeconds(durationSeconds)));
-                    da.DecelerationRatio = 1;
-                    rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
+                //    this.txtTurnUpPage.Visibility = Visibility.Visible;
+                //    this.txtTurnDownPage.Visibility = Visibility.Visible;
+                //    RotateTransform3D rot = (RotateTransform3D)TryFindResource("Transform3D_TurnUpPageRotation");
+                //    DoubleAnimation da = new DoubleAnimation(-180, new Duration(TimeSpan.FromSeconds(durationSeconds)));
+                //    da.DecelerationRatio = 1;
+                //    rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
 
-                    rot = (RotateTransform3D)TryFindResource("Transform3D_TurnDownPageRotation");
-                    da = new DoubleAnimation(0, new Duration(TimeSpan.FromSeconds(durationSeconds)));
-                    da.DecelerationRatio = 1;
-                    da.Completed += (csender,se)=> {
-                        this.imgLeftPage.ImageSource = this.imgTurnDownPage.ImageSource;
+                //    rot = (RotateTransform3D)TryFindResource("Transform3D_TurnDownPageRotation");
+                //    da = new DoubleAnimation(0, new Duration(TimeSpan.FromSeconds(durationSeconds)));
+                //    da.DecelerationRatio = 1;
+                //    da.Completed += (csender,se)=> {
+                //        this.imgLeftPage.ImageSource = this.imgTurnDownPage.ImageSource;
 
-                        rot = (RotateTransform3D)TryFindResource("Transform3D_TurnUpPageRotation");
-                        da = new DoubleAnimation(0, new Duration(TimeSpan.FromSeconds(0)));
-                        rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
+                //        rot = (RotateTransform3D)TryFindResource("Transform3D_TurnUpPageRotation");
+                //        da = new DoubleAnimation(0, new Duration(TimeSpan.FromSeconds(0)));
+                //        rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
 
-                        rot = (RotateTransform3D)TryFindResource("Transform3D_TurnDownPageRotation");
-                        da = new DoubleAnimation(180, new Duration(TimeSpan.FromSeconds(0)));
-                        rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
+                //        rot = (RotateTransform3D)TryFindResource("Transform3D_TurnDownPageRotation");
+                //        da = new DoubleAnimation(180, new Duration(TimeSpan.FromSeconds(0)));
+                //        rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
 
-                        this.imgTurnUpPage.ImageSource = (BookPages.Count <= CurrentPage) ? null : BookPages[CurrentPage];
-                        if (BookPages.Count > CurrentPage + 1)
-                            this.imgTurnDownPage.ImageSource = BookPages[CurrentPage + 1];
+                //        this.imgTurnUpPage.ImageSource = (BookPages.Count <= CurrentPage) ? null : BookPages[CurrentPage];
+                //        if (BookPages.Count > CurrentPage + 1)
+                //            this.imgTurnDownPage.ImageSource = BookPages[CurrentPage + 1];
 
-                        this.txtTurnUpPage.Visibility = Visibility.Collapsed;
-                        this.txtTurnDownPage.Visibility = Visibility.Collapsed;
-                    };
-                    rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
-                }
+                //        this.txtTurnUpPage.Visibility = Visibility.Collapsed;
+                //        this.txtTurnDownPage.Visibility = Visibility.Collapsed;
+                //    };
+                //    rot.Rotation.BeginAnimation(AxisAngleRotation3D.AngleProperty, da);
+                //}
             }
         }
     }
