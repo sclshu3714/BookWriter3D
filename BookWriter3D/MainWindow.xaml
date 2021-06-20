@@ -5,8 +5,8 @@
         xmlns:tools="clr-namespace:_3DTools;assembly=3DTools"
         xmlns:ebook="clr-namespace:EBookLibrary;assembly=EBookLibrary"
         Title="BookWriter3D"
-        Height="768"
-        Width="1024"
+        Height="600"
+        Width="900"
         Loaded="MainWindow_Loaded">
     <Window.Resources>
         <ResourceDictionary>
@@ -79,13 +79,7 @@
                     </Viewport2DVisual3D.Visual>
                 </Viewport2DVisual3D>
 
-                <Viewport2DVisual3D>
-                    <Viewport2DVisual3D.Geometry>
-                        <MeshGeometry3D 
-                            Positions="-2.16,1,0 -2.16,-1,0 0.72,-1,0 0.72,1,0"
-                            TextureCoordinates="0,0 0,1 1,1 1,0"
-                            TriangleIndices="0,1,2 0,2,3" />
-                    </Viewport2DVisual3D.Geometry>
+                <Viewport2DVisual3D Geometry="{StaticResource MeshGeometry3D_PlaneX}">
                     <Viewport2DVisual3D.Transform>
                         <TranslateTransform3D OffsetX="0.72" OffsetZ="0.001"/>
                     </Viewport2DVisual3D.Transform>
@@ -93,7 +87,7 @@
                         <DiffuseMaterial Viewport2DVisual3D.IsVisualHostMaterial="True" />
                     </Viewport2DVisual3D.Material>
                     <Viewport2DVisual3D.Visual>
-                        <ebook:EBook x:Name="myBook" Width="1000" Height="700">
+                        <ebook:EBook x:Name="myBook" CurrentSheetIndex="0" Width="900" Height="600">
                             <ebook:EBook.ItemTemplate>
                                 <DataTemplate>
                                     <Border BorderThickness="4" BorderBrush="Gray" Background="Transparent">
